@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_STORAGE);
             }
         }
-
     }
     ActivityResultLauncher<Uri> resultLauncher = registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             if (o) {
                 imageView.setImageURI(myUri);
                 imageView.setDrawingCacheEnabled(true);
+
                 saveImage();
             } else {
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
 
         myUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
 
         resultLauncher.launch(myUri);
     }
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         File imageFile = new File(directory, "captured_image.jpg");
 
         try (FileOutputStream outStream = new FileOutputStream(imageFile)) {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             Toast.makeText(this, "Image saved to " + imageFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("MainActivity", "Error saving image", e);
