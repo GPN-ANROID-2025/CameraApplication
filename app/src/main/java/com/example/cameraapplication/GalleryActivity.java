@@ -50,6 +50,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void openGallery() {
 
+        //resultLauncher.launch(new PickVisualMediaRequest());
         resultLauncher2.launch(new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).setMaxItems(3).build());
     }
 
